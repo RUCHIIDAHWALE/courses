@@ -6,80 +6,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses Information</title>
 
-   <style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.main-heading {
-    font-size: 2em;
-    margin: 20px 0;
-    color: #333;
-}
+        body.light-theme {
+            background-color: #f0f0f0;
+            color: #333;
+        }
 
-.course-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-}
+        body.dark-theme {
+            background-color: #333;
+            color: #f0f0f0;
+        }
 
-.course-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-    padding: 20px;
-    text-align: center;
-}
+        .theme-switcher {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
 
-.course-image {
-    width: 100px;
-    border-radius: 8px;
-}
+        .main-heading {
+            font-size: 2em;
+            margin: 20px 0;
+        }
 
-.course-title {
-    font-size: 1.5em;
-    margin: 10px 0;
-}
+        .course-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
 
-.course-description {
-    font-size: 1em;
-    color: #666;
-    display: none; 
-}
+        .course-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            padding: 20px;
+            text-align: center;
+        }
 
-.toggle-button {
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
+        body.dark-theme .course-card {
+            background-color: #444;
+            color: #f0f0f0;
+        }
 
-.toggle-button:hover {
-    background-color: #0056b3;
-}
+        .course-image {
+            width: 100px;
+            border-radius: 8px;
+        }
 
-   </style>
+        .course-title {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .course-description {
+            font-size: 1em;
+            color: #666;
+            display: none;
+            /* Initially hidden */
+        }
+
+        body.dark-theme .course-description {
+            color: #bbb;
+        }
+
+        .toggle-button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .toggle-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
-<body>
+<body class="light-theme">
+    <img id="theme-switcher" class="theme-switcher" src="moon.png" alt="Switch to Dark Theme">
     <h1 class="main-heading">Our Most Popular Courses</h1>
     <div class="course-container" id="course-container">
-        
+        <!-- Course cards will be inserted here by JavaScript -->
+    </div>
+    <h1 class="main-heading">Our Special Courses</h1>
+    <div class="course-container" id="special-course-container">
+        <!-- Special course cards will be inserted here by JavaScript -->
     </div>
 
-   <script>
-    const courses = [
+    <script>
+        const popularCourses = [
             {
                 title: "Java",
                 image: "java.png",
@@ -109,6 +141,29 @@ body {
                 title: "Python",
                 image: "python.png",
                 description: "Begin your journey with Python programming."
+            }
+        ];
+
+        const specialCourses = [
+            {
+                title: "Fullstack in Java",
+                image: "fullstack-java.png",
+                description: "Become a Fullstack developer with Java."
+            },
+            {
+                title: "Fullstack in Web",
+                image: "web.png",
+                description: "Learn fullstack web development with modern technologies."
+            },
+            {
+                title: ".NET",
+                image: "dotnet.png",
+                description: "Get started with .NET framework for building applications."
+            },
+            {
+                title: "VB.NET",
+                image: "vbnet.png",
+                description: "Learn VB.NET programming for building robust applications."
             }
         ];
 
@@ -151,12 +206,31 @@ body {
         }
 
         const courseContainer = document.getElementById('course-container');
-        courses.forEach(course => {
+        popularCourses.forEach(course => {
             const courseCard = createCourseCard(course);
             courseContainer.appendChild(courseCard);
         });
 
-   </script>
+        const specialCourseContainer = document.getElementById('special-course-container');
+        specialCourses.forEach(course => {
+            const courseCard = createCourseCard(course);
+            specialCourseContainer.appendChild(courseCard);
+        });
+
+        document.getElementById('theme-switcher').addEventListener('click', () => {
+            const body = document.body;
+            body.classList.toggle('dark-theme');
+            const themeSwitcher = document.getElementById('theme-switcher');
+            if (body.classList.contains('dark-theme')) {
+                themeSwitcher.src = 'Sun.png';
+                themeSwitcher.alt = 'Switch to Light Theme';
+            } else {
+                themeSwitcher.src = 'moon.png';
+                themeSwitcher.alt = 'Switch to Dark Theme';
+            }
+        });
+    </script>
+
 </body>
 
 </html>
