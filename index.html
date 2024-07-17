@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Information</title>
+
+   <style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-heading {
+    font-size: 2em;
+    margin: 20px 0;
+    color: #333;
+}
+
+.course-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.course-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    padding: 20px;
+    text-align: center;
+}
+
+.course-image {
+    width: 100px;
+    border-radius: 8px;
+}
+
+.course-title {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.course-description {
+    font-size: 1em;
+    color: #666;
+    display: none; 
+}
+
+.toggle-button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.toggle-button:hover {
+    background-color: #0056b3;
+}
+
+   </style>
+</head>
+
+<body>
+    <h1 class="main-heading">Our Most Popular Courses</h1>
+    <div class="course-container" id="course-container">
+        
+    </div>
+
+   <script>
+    const courses = [
+            {
+                title: "Java",
+                image: "java.png",
+                description: "Learn the basics of Java programming language."
+            },
+            {
+                title: "C++",
+                image: "cpp.png",
+                description: "Dive into C++ programming with this course."
+            },
+            {
+                title: "C",
+                image: "c.png",
+                description: "Understand the fundamentals of C programming."
+            },
+            {
+                title: "PHP",
+                image: "php.png",
+                description: "Get started with PHP and server-side scripting."
+            },
+            {
+                title: "DSA",
+                image: "dsa.png",
+                description: "Master data structures and algorithms for efficient coding."
+            },
+            {
+                title: "Python",
+                image: "python.png",
+                description: "Begin your journey with Python programming."
+            }
+        ];
+
+        function createCourseCard(course) {
+            const card = document.createElement('div');
+            card.className = 'course-card';
+
+            const img = document.createElement('img');
+            img.src = course.image;
+            img.alt = `${course.title} Image`;
+            img.className = 'course-image';
+
+            const title = document.createElement('h2');
+            title.className = 'course-title';
+            title.innerText = course.title;
+
+            const description = document.createElement('p');
+            description.className = 'course-description';
+            description.innerText = course.description;
+
+            const toggleButton = document.createElement('button');
+            toggleButton.className = 'toggle-button';
+            toggleButton.innerText = 'Show Description';
+            toggleButton.onclick = function () {
+                if (description.style.display === 'none') {
+                    description.style.display = 'block';
+                    toggleButton.innerText = 'Hide Description';
+                } else {
+                    description.style.display = 'none';
+                    toggleButton.innerText = 'Show Description';
+                }
+            };
+
+            card.appendChild(img);
+            card.appendChild(title);
+            card.appendChild(description);
+            card.appendChild(toggleButton);
+
+            return card;
+        }
+
+        const courseContainer = document.getElementById('course-container');
+        courses.forEach(course => {
+            const courseCard = createCourseCard(course);
+            courseContainer.appendChild(courseCard);
+        });
+
+   </script>
+</body>
+
+</html>
